@@ -19,7 +19,7 @@
                 <div class="col-3 form-group">
                     <label class="control-label" for="m">{{ trans('global.month') }}</label>
                     <select name="m" for="m" class="form-control">
-                        @foreach(cal_info(0)['months'] as $month)
+                        @foreach(array_reduce(range(1,12),function($rslt,$m){ $rslt[$m] = date('F',mktime(0,0,0,$m,10)); return $rslt; }) as $month)
                             <option value="{{ $month }}" @if($month===old('m', Request::get('m', date('m')))) selected @endif>
                                 {{ $month }}
                             </option>
@@ -87,8 +87,6 @@
                 </table>
             </div>
         </div>
-
-
 
     </div>
 </div>
